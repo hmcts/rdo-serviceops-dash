@@ -1,0 +1,9 @@
+.vscode/
+.sensitive
+.env
+*.pc
+*.pyc
+*.pyo
+__pycache__/
+*.py_ 
+.env

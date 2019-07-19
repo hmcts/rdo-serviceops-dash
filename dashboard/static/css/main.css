@@ -1,0 +1,26 @@
+.green-icon {
+    color: green;
+}
+
+.orange-icon {
+    color: orange;
+}
+
+.red-icon {
+    color: red;
+}
+
+.graf-embed {
+    margin: 10px 0px 10px 0px !important;
+    padding: 10px 0px 10px 0px !important;
+}
+
+.long {
+    width: 100%;
+    margin: 10px 0px 10px 0px !important;
+    padding: 10px 0px 10px 0px !important;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
