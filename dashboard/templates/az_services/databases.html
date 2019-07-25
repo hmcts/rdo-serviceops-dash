@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">DATABASES GO HERE</h1>
+    </div>
+    <div>
+        <ul>
+            <li>
+            <a href="#"><i class="fas fa-database"></i>SELECT DATABASE:</a><br />
+            <form method="POST" action="">
+            <select name="databases" onchange="this.form.submit()" required>
+                {% for database in databases %}
+                    <option value="{{ database.id }}">{{ database.name }}</option>
+                {% endfor %}
+            </select>
+            </form>
+            </li>
+        </ul>
+    </div>
+    <div>
+        {% for message in get_flashed_messages() %}
+            Current CPU usage is {{ message }}
+        {% endfor %}
+    </div>
+</main>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

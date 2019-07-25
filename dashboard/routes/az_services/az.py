@@ -14,9 +14,9 @@ az = Blueprint('az', __name__)
 @az.route('/azure_services')
 def azure_services():
 
-    tenant_id = '531ff96d-0ae9-462a-8d2d-bec7c0b42082'
-    application_id = 'f2279271-d0a0-45ed-ac1c-5aff1388ff01'
-    application_secret = '.RS[03PGSl]*1A1L[gTs4+DTuLrkf3*n'
+    tenant_id = config.TENANT
+    application_id = config.CLIENT_ID
+    application_secret = config.CLIENT_SECRET
 
     credentials = ServicePrincipalCredentials(
         client_id=application_id,
@@ -48,4 +48,4 @@ def azure_services():
 
 @az.route('/azure_services/apps')
 def azure_apps():
-    return render_template('az_services/app_services.html')
+    return render_template('az_services/webapps.html')
