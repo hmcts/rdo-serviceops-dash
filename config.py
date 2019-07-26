@@ -1,4 +1,5 @@
 import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     
@@ -12,3 +13,6 @@ class Config:
     PORT = 5000
     AUTHORITY_HOST_URL = 'https://login.microsoftonline.com'
     RESOURCE = 'https://management.azure.com'
+
+    JIRA_USER = os.environ.get('JIRA_USER')
+    JIRA_PASSWORD = os.environ.get('JIRA_PASSWORD')
