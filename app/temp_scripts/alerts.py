@@ -19,23 +19,17 @@ alerts_client = AlertsManagementClient(credentials, subscription_id, base_url)
 
 alerts = alerts_client.alerts.get_all()
 
-day_ago = datetime.datetime.now() - datetime.timedelta(days = 1)
+def get_alerts(alerts):
 
-print(alerts)
+    for alert in alerts:
+        print("Alert name: {} \n, Alert State {} \n, Alert Severity: {} \n, Target resource name {} \n, Target resource group: {} \n, Start date {}, \n Resolved Date {} \n".format(
+            alert.name, 
+            alert.properties.essentials.alert_state,
+            alert.properties.essentials.severity, 
+            alert.properties.essentials.target_resource_name, 
+            alert.properties.essentials.target_resource_group,
+            alert.properties.essentials.start_date_time,
+            alert.properties.essentials.monitor_condition_resolved_date_time
+            ))
 
-for alert in alerts:
-    print(alert)
-# def get_alerts(alerts):
-
-#     for alert in alerts:
-#         print("Alert name: {} \n, Alert State {} \n, Alert Severity: {} \n, Target resource name {} \n, Target resource group: {} \n, Start date {}, \n Resolved Date {} \n".format(
-#             alert.name, 
-#             alert.properties.essentials.alert_state,
-#             alert.properties.essentials.severity, 
-#             alert.properties.essentials.target_resource_name, 
-#             alert.properties.essentials.target_resource_group,
-#             alert.properties.essentials.start_date_time,
-#             alert.properties.essentials.monitor_condition_resolved_date_time
-#             ))
-
-# get_alerts(alerts)
+get_alerts(alerts)
