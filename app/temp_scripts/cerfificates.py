@@ -2,7 +2,7 @@ from azure.common.credentials import ServicePrincipalCredentials
 from azure.mgmt.keyvault import KeyVaultManagementClient
 from azure.keyvault import KeyVaultClient
 from azure.keyvault.models import *
-import os, re
+import os, re, datetime
 
 tenant_id = os.environ.get('TENANT')
 application_id = os.environ.get('CLIENT_ID_JENKINS')   
@@ -27,7 +27,7 @@ kv_client = KeyVaultClient(kv_credentials)
 
 vaults = kv_mgmt_client.vaults.list()
 
-# kv_client.get_certificate() positional arguments: 'vault_base_url', 'certificate_name', and 'certificate_version'
+expiry_date = datetime.datetime.now() + datetime.timedelta(days = 30)
 
 for vault in vaults:
     vault_base_url = "https://{}.vault.azure.net".format(vault.name)
@@ -35,5 +35,5 @@ for vault in vaults:
     for cert in certs:
         regx = "{}/certificates/".format(vault_base_url)
         cert_name = re.sub(regx, '', cert.id)
-        if cert.attributes.enabled == True:
+        if cert.attributes.enabled == True and cert.attributes.expires.replace(tzinfo=None) < expiry_date:
             print("Cert {} in {} expires on {}".format(cert_name,vault.name,cert.attributes.expires))

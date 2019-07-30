@@ -14,7 +14,7 @@ import numpy as np
 
 tenant_id = os.environ.get('TENANT')
 application_id = os.environ.get('CLIENT_ID_JENKINS')   
-application_secret = os.environ.get('CLIENT_SECRET_JENKINS') 
+application_secret = os.environ.get('CLIENT_SECRET_JENKINS')  
 subscription_id = os.environ.get('SUBSCRIPTION_ID')
 
 credentials = ServicePrincipalCredentials(
@@ -64,8 +64,33 @@ def get_timeseries_avg_data(metric_data,threshhold,metric_name):
 
         return x_metrics, y_metrics, metric_name
 
+
+def create_graph(cpu_metrics, storage_metrics):
+
+    cpu = go.Scatter(
+        x = cpu_metrics[1],
+        y = cpu_metrics[0],
+        mode = 'lines',
+        name = cpu_metrics[2]
+    )
+
+    storage = go.Scatter(
+        x = storage_metrics[1],
+        y = storage_metrics[0],
+        mode = 'lines',
+        name = storage_metrics[2]
+    )
+
+    data = [cpu, storage] 
+    layout = go.Layout(
+        title = 'Usage for {} Database'.format(resource.name)
+    )   
+    fig = go.Figure(data=data,layout=layout)
+    pyo.plot(fig, filename='graph.html')
+
+
 for resource in databases:
-    print(resource)
+    
     resource_id = resource.id
     cpu_usage = get_metric('cpu_percent','Average')
     storage_usage = get_metric('storage_percent','Average')
